@@ -151,49 +151,83 @@ const SleepyCat: React.FC<SleepyCatProps> = ({ className }) => {
     >
       {/* Z particles floating above cat when sleeping */}
       {showZs && isSleeping && (
-        <div className="absolute top-0 right-0 transform -translate-y-4 translate-x-2">
+        <div className="absolute -top-6 right-0 transform">
           <ZzzParticle delay={0} />
           <ZzzParticle delay={1} />
           <ZzzParticle delay={2} />
         </div>
       )}
       
-      {/* Cat body */}
-      <div 
-        className={cn(
-          "w-24 h-20 bg-cat-body rounded-3xl relative",
-          isSleeping ? "animate-breathing" : "animate-wake-up",
-          isDragging && "shadow-lg"
-        )}
-      >
-        {/* Cat ears */}
-        <div className="absolute w-6 h-6 bg-cat-ear rounded-tl-xl rounded-br-3xl -top-3 left-2 transform -rotate-15 animate-twitch"></div>
-        <div className="absolute w-6 h-6 bg-cat-ear rounded-tr-xl rounded-bl-3xl -top-3 right-2 transform rotate-15 animate-twitch"></div>
-        
-        {/* Cat face - always closed eyes when sleeping */}
-        <div className="absolute top-7 left-0 right-0 flex justify-center items-center">
+      {/* Ghibli-style Cat - Full Body */}
+      <div className={cn(
+        "relative",
+        isSleeping ? "animate-breathing" : "animate-wake-up"
+      )}>
+        {/* Cat body - Ghibli style */}
+        <div className="relative w-32 h-16">
+          {/* Main body - orange colored */}
+          <div className="absolute bottom-0 w-32 h-14 bg-orange-300 rounded-3xl shadow-md"></div>
+          
+          {/* Tail */}
+          <div className="absolute bottom-5 -left-8 w-12 h-4 bg-orange-300 rounded-l-full shadow-sm transform rotate-6"></div>
+          
+          {/* Legs - when sleeping, tucked under */}
           {isSleeping ? (
             <>
-              <div className="mx-2 w-3 h-0.5 bg-black rounded-full"></div>
-              <div className="mx-2 w-3 h-0.5 bg-black rounded-full"></div>
+              <div className="absolute bottom-0 left-4 w-5 h-2 bg-orange-200 rounded-b-md shadow-inner"></div>
+              <div className="absolute bottom-0 right-4 w-5 h-2 bg-orange-200 rounded-b-md shadow-inner"></div>
             </>
           ) : (
             <>
-              <div className="mx-2 w-3 h-3 bg-black rounded-full"></div>
-              <div className="mx-2 w-3 h-3 bg-black rounded-full"></div>
+              <div className="absolute bottom-0 left-5 w-4 h-4 bg-orange-300 rounded-b-md shadow-sm"></div>
+              <div className="absolute bottom-0 left-10 w-4 h-4 bg-orange-300 rounded-b-md shadow-sm"></div>
+              <div className="absolute bottom-0 right-5 w-4 h-4 bg-orange-300 rounded-b-md shadow-sm"></div>
+              <div className="absolute bottom-0 right-10 w-4 h-4 bg-orange-300 rounded-b-md shadow-sm"></div>
             </>
           )}
+          
+          {/* Head */}
+          <div className="absolute top-0 left-4 w-20 h-16 bg-orange-300 rounded-t-3xl shadow-md">
+            {/* Ears */}
+            <div className="absolute -top-3 left-2 w-5 h-6 bg-orange-400 rounded-tl-xl rounded-tr-xl transform -rotate-6 animate-twitch"></div>
+            <div className="absolute -top-3 right-2 w-5 h-6 bg-orange-400 rounded-tl-xl rounded-tr-xl transform rotate-6 animate-twitch"></div>
+            
+            {/* Inner ears */}
+            <div className="absolute -top-2 left-3 w-3 h-3 bg-orange-200 rounded-tl-xl transform -rotate-6"></div>
+            <div className="absolute -top-2 right-3 w-3 h-3 bg-orange-200 rounded-tr-xl transform rotate-6"></div>
+            
+            {/* Face - always closed eyes when sleeping */}
+            <div className="absolute top-7 left-0 right-0 flex justify-center items-center">
+              {isSleeping ? (
+                <>
+                  <div className="mx-3 w-2 h-0.5 bg-amber-950 rounded-full"></div>
+                  <div className="mx-3 w-2 h-0.5 bg-amber-950 rounded-full"></div>
+                </>
+              ) : (
+                <>
+                  <div className="mx-3 w-2 h-2 bg-amber-950 rounded-full"></div>
+                  <div className="mx-3 w-2 h-2 bg-amber-950 rounded-full"></div>
+                </>
+              )}
+            </div>
+            
+            {/* Nose */}
+            <div className="absolute top-9 left-0 right-0 mx-auto w-2 h-1.5 bg-amber-600 rounded-full"></div>
+            
+            {/* Mouth - curved when sleeping */}
+            {isSleeping ? (
+              <div className="absolute top-11 left-0 right-0 mx-auto w-4 h-1 border-b border-amber-700 rounded-b-full"></div>
+            ) : (
+              <div className="absolute top-11 left-0 right-0 mx-auto w-1 h-1 border-b border-amber-700"></div>
+            )}
+            
+            {/* Whiskers */}
+            <div className="absolute top-10 left-1 w-5 h-0.5 bg-orange-100 transform -rotate-6"></div>
+            <div className="absolute top-11 left-0 w-6 h-0.5 bg-orange-100 transform rotate-2"></div>
+            <div className="absolute top-10 right-1 w-5 h-0.5 bg-orange-100 transform rotate-6"></div>
+            <div className="absolute top-11 right-0 w-6 h-0.5 bg-orange-100 transform -rotate-2"></div>
+          </div>
         </div>
-        
-        {/* Cat nose */}
-        <div className="absolute top-10 left-0 right-0 mx-auto w-2 h-1.5 bg-cat-nose rounded-full"></div>
-        
-        {/* Cat mouth - curved when sleeping */}
-        {isSleeping ? (
-          <div className="absolute top-12 left-0 right-0 mx-auto w-4 h-1 border-b border-black rounded-b-full"></div>
-        ) : (
-          <div className="absolute top-12 left-0 right-0 mx-auto w-1 h-1 border-b border-black"></div>
-        )}
       </div>
     </div>
   );

@@ -64,9 +64,10 @@ export default {
 					ring: 'hsl(var(--sidebar-ring))'
 				},
 				cat: {
-					body: '#9b87f5',
-					ear: '#7E69AB',
-					nose: '#FFDEE2'
+					body: '#F97316', // orange-500
+					ear: '#FB923C', // orange-400
+					nose: '#FDE68A', // amber-200
+					whisker: '#FFF7ED' // orange-50
 				}
 			},
 			borderRadius: {
