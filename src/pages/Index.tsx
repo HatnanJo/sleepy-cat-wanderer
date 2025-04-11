@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import SleepyCat from '@/components/SleepyCat';
 import InfoPanel from '@/components/InfoPanel';
+import Navbar from '@/components/Navbar';
 
 const Index = () => {
   const [nightMode, setNightMode] = useState(false);
@@ -45,6 +46,22 @@ const Index = () => {
           : 'bg-gradient-to-b from-blue-100 via-purple-100 to-purple-200'
       }`}
     >
+      {/* Navigation Bar */}
+      <Navbar />
+      
+      {/* Main content with padding for navbar */}
+      <div className="pt-16">
+        {/* Hero Section */}
+        <div className="absolute top-20 left-0 right-0 text-center z-10 pointer-events-none">
+          <h1 className="text-4xl md:text-5xl font-bold text-white drop-shadow-lg">
+            Your purr-fect screen companion
+          </h1>
+          <p className="mt-2 text-white/90 text-lg md:text-xl drop-shadow-md">
+            Drag the cat anywhere on your screen for a cozy workspace buddy
+          </p>
+        </div>
+      </div>
+      
       {/* Stars (visible only at night) */}
       {nightMode && stars.map(star => (
         <div

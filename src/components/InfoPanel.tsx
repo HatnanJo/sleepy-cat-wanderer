@@ -2,38 +2,37 @@
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Info, X } from 'lucide-react';
+import { cn } from '@/lib/utils';
+import InfoPanelContent from './InfoPanelContent';
 
 const InfoPanel = () => {
-  const [isVisible, setIsVisible] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
 
-  return isVisible ? (
-    <div className="fixed bottom-5 left-5 bg-white/80 backdrop-blur-sm p-4 rounded-lg shadow-lg max-w-xs z-40 border border-purple-100">
-      <div className="flex justify-between items-center mb-2">
-        <h3 className="font-medium text-purple-800">Sleepy Cat</h3>
-        <Button 
-          variant="ghost" 
-          size="icon" 
-          className="h-6 w-6"
-          onClick={() => setIsVisible(false)}
-        >
-          <X className="h-4 w-4" />
-        </Button>
+  const toggleOpen = () => {
+    setIsOpen(!isOpen);
+  };
+
+  return (
+    <>
+      {/* Info button */}
+      <Button
+        className="fixed bottom-4 right-4 h-10 w-10 rounded-full shadow-lg bg-white hover:bg-white/90 text-amber-600"
+        size="icon"
+        onClick={toggleOpen}
+      >
+        {isOpen ? <X className="h-5 w-5" /> : <Info className="h-5 w-5" />}
+      </Button>
+
+      {/* Info panel content */}
+      <div
+        className={cn(
+          "fixed bottom-16 right-4 w-full max-w-sm transform transition-all duration-300 ease-out shadow-xl rounded-xl bg-white/95 backdrop-blur-sm dark:bg-gray-800/95 border border-amber-200 overflow-hidden",
+          isOpen ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8 pointer-events-none"
+        )}
+      >
+        <InfoPanelContent />
       </div>
-      <p className="text-sm text-gray-700 mb-2">
-        Drag the cat to move it around. It will wake up when moved and fall back asleep after a few seconds.
-      </p>
-      <div className="text-xs text-gray-500">
-        Click anywhere outside the cat to place it there ✨
-      </div>
-    </div>
-  ) : (
-    <Button 
-      className="fixed bottom-5 left-5 z-40 bg-white/80 hover:bg-white/90 text-purple-800 backdrop-blur-sm border border-purple-100"
-      size="icon"
-      onClick={() => setIsVisible(true)}
-    >
-      <Info className="h-4 w-4" />
-    </Button>
+    </>
   );
 };
 
